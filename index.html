@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,25 +9,36 @@
     <link rel="stylesheet" href="style.css">
     <script src="config.js" defer></script>
 </head>
+
 <body>
-    <div class="title-bar">
-        <input type="text" name="username" id="username" placeholder="Name">
-        <h1 class="title-text">'s Library</h1>
-    </div>
-    <div class="add-new-book">
-        <button type="button">Book</button>
-    </div>
-    <div class="content-container">
-        <div class="book">
-            <div class="book-title"></div>
-            <div class="book-author"></div>
-            <div class="book-read"></div>
+    <div class="main-body">
+        <div class="title-bar">
+            <input type="text" name="username" id="username" placeholder="Name">
+            <h1 class="title-text">'s Library</h1>
         </div>
-        <div class="book">
-            <div class="book-title"></div>
-            <div class="book-author"></div>
-            <div class="book-read"></div>
+        <div class="add-new-book">
+            <button type="button">Book</button>
+        </div>
+
+        <div class="content-container">
+        </div>
+    </div>
+
+    <div class="modal-window">
+        <div class="modal-container">
+            <div class="modal-title">
+                <input type="text" name="title" id="title" class="bookEntry" placeholder="title">
+            </div>
+            <div class="modal-author">
+                <input type="text" name="author" id="author" class="bookEntry" placeholder="author">
+            </div>
+            <div class="modal-read">
+                <h2>Read:</h2>
+                <input type="checkbox" name="read" id="read-check">
+            </div>
+            <button type="button" id="done">Done</button>
         </div>
     </div>
 </body>
+
 </html>

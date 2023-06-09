@@ -1,0 +1,107 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h4{
+    margin: 0;
+    padding: 0;
+}
+
+.main-body{
+    width: 100vw;
+    position: static;
+}
+
+.title-bar input[type="text"]{
+    border: none;
+    background-color: #EEE;
+    padding: 0.5em 0 0.5em 0.5em;
+    width: 470px;
+    height: 70px;
+    border-bottom: solid 2px black;
+}
+
+.title-bar .title-text, .title-bar input[type="text"]{
+    font-size: 4em;
+    font-weight: normal;
+}
+
+.title-bar{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+
+.content-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 10px;
+}
+
+.book{
+    border: solid 1px black;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 2fr 2fr 2fr;
+    justify-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 5px;
+    min-height: 200px;
+}
+
+.book-title, .book-author, .book-read{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.book-name{
+    text-align: center;
+}
+
+.modal-window{
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    border: solid 1px black;
+    padding: 10px;
+    gap: 10px;
+    top: 100%;
+    left: 999px;
+}
+
+.modal-read{
+    display: flex;
+    gap: 10px;
+}
+
+.bookEntry{
+    font-size: 2em;
+    border: none;
+    background-color: #EEE;
+    border-bottom: solid 2px black;
+    padding: 10px;
+}
+
+#done{
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 1em;
+    border-radius: 10px;
+}
