@@ -1,152 +1,148 @@
-console.log("Connected");
+console.log('Connected')
 
-var booksinLibrary = [];
+const booksinLibrary = []
 
-function displayBooks() {
-    console.log("Books in Library ->");
-    for (let i = 0; i < booksinLibrary.length; i++) {
-        console.log(booksinLibrary[i]);
+function displayBooks () {
+  console.log('Books in Library ->')
+  for (let i = 0; i < booksinLibrary.length; i++) {
+    console.log(booksinLibrary[i])
+  }
+}
+
+function findBook (title) {
+  let index
+  for (let i = 0; i < booksinLibrary.length; i++) {
+    if (booksinLibrary[i].title === title) {
+      index = i
+      break
     }
+  }
+  return booksinLibrary[index]
 }
 
-function findBook(title){
-    var index;
-    for (var i = 0; i < booksinLibrary.length; i++){
-        if (booksinLibrary[i].title == title){
-            index = i;
-            break;
-        }
-    }
-    return booksinLibrary[index];
+function fetchBookObject () {
+  // get title of book clicked
+  const bookTitle = this.parentNode.children[0].children[1].textContent
+  return bookTitle
 }
 
-function fetchBookObject() {
-    //get title of book clicked
-    let bookTitle = this.parentNode.children[0].children[1].textContent;
-    return bookTitle;
+function deleteBook () {
+  const bookTitle = fetchBookObject.call(this)
+  findBook(bookTitle).removeBook()
+  // remove actual node
+  this.parentNode.remove()
 }
 
-function deleteBook() {
-    var bookTitle = fetchBookObject.call(this);
-    findBook(bookTitle).removeBook();
-    //remove actual node
-    this.parentNode.remove();
+const modalWindow = document.querySelector('.modal-window')
+const mainBody = document.querySelector('.main-body')
 
+function modalPopUp () {
+  // modal window pops up
+  modalWindow.style.display = 'flex'
+  mainBody.style.position = 'absolute'
 }
 
-const modalWindow = document.querySelector(".modal-window");
-const mainBody = document.querySelector(".main-body");
+function addBookEntry () {
+  // get data from fields and store it in new variable
+  const bookName = document.getElementById('title').value
+  const authorName = document.getElementById('author').value
+  const readState = document.getElementById('read-check').checked
 
-function modalPopUp(){
-    // modal window pops up
-    modalWindow.style.display = 'flex';
-    mainBody.style.position = 'absolute';
+  const book = new Book(bookName, authorName, readState)
+  book.addBook()
+  displayBooks()
+
+  // close modal window
+  modalWindow.style.display = 'none'
+  mainBody.style.position = 'static'
 }
 
-function addBookEntry(){
-    //get data from fields and store it in new variable
-    bookName = document.getElementById("title").value;
-    authorName = document.getElementById("author").value;
-    readState = document.getElementById("read-check").checked;
+const done = document.querySelector('#done')
+done.addEventListener('click', addBookEntry)
 
-    book = new Book(bookName, authorName, readState);
-    book.addBook();
-    displayBooks();
+const addBookButton = document.querySelector('.add-new-book')
+addBookButton.addEventListener('click', modalPopUp)
 
-    //close modal window
-    modalWindow.style.display = 'none';
-    mainBody.style.position = 'static';
+const contentContainer = document.querySelector('.content-container')
 
+function displayBookCard (bookObj) {
+  const book = document.createElement('div')
+  book.classList = 'book'
+  const bookTitle = document.createElement('div')
+  bookTitle.classList = 'book-title'
+  const bookAuthor = document.createElement('div')
+  bookAuthor.classList = 'book-author'
+  const bookRead = document.createElement('div')
+  bookRead.classList = 'book-read'
+
+  const h2TitleText = document.createElement('h2')
+  const h2BookName = document.createElement('h2')
+  h2BookName.classList = 'book-name'
+  const h4AuthorText = document.createElement('h4')
+  const h4AuthorName = document.createElement('h4')
+  h4AuthorName.classList = 'book-author'
+  const h4Read = document.createElement('h4')
+  const checkbox = document.createElement('input')
+  checkbox.setAttribute('type', 'checkbox')
+  checkbox.classList = 'read'
+
+  const deleteButton = document.createElement('button')
+  deleteButton.addEventListener('click', deleteBook)
+  deleteButton.setAttribute('type', 'button')
+  deleteButton.classList = 'del-button'
+
+  bookTitle.appendChild(h2TitleText)
+  bookTitle.appendChild(h2BookName)
+
+  bookAuthor.appendChild(h4AuthorText)
+  bookAuthor.appendChild(h4AuthorName)
+
+  bookRead.appendChild(h4Read)
+  bookRead.appendChild(checkbox)
+
+  book.appendChild(bookTitle)
+  book.appendChild(bookAuthor)
+  book.appendChild(bookRead)
+  book.appendChild(deleteButton)
+
+  contentContainer.appendChild(book)
+
+  h2TitleText.textContent = 'Title: '
+  h4AuthorText.textContent = 'Author: '
+  h4Read.textContent = 'Read: '
+  deleteButton.textContent = 'Delete'
+
+  h2BookName.textContent = bookObj.title
+  h4AuthorName.textContent = bookObj.author
+  checkbox.checked = bookObj.readStatus
 }
 
-const done = document.querySelector("#done");
-done.addEventListener('click', addBookEntry);
-
-const addBookButton = document.querySelector(".add-new-book");
-addBookButton.addEventListener('click', modalPopUp);
-
-const contentContainer = document.querySelector(".content-container");
-
-function displayBookCard(bookObj){
-
-    const book = document.createElement('div');
-    book.classList = 'book';
-    const bookTitle = document.createElement('div');
-    bookTitle.classList = 'book-title';
-    const bookAuthor = document.createElement('div');
-    bookAuthor.classList = 'book-author';
-    const bookRead = document.createElement('div');
-    bookRead.classList = 'book-read';
-
-    const h2TitleText = document.createElement('h2');
-    const h2BookName = document.createElement('h2');
-    h2BookName.classList = 'book-name';
-    const h4AuthorText = document.createElement('h4');
-    const h4AuthorName = document.createElement('h4');
-    h4AuthorName.classList = 'book-author';
-    const h4Read = document.createElement('h4');
-    const checkbox = document.createElement('input')
-    checkbox.setAttribute('type', 'checkbox');
-    checkbox.classList = 'read';
-
-    const deleteButton = document.createElement('button');
-    deleteButton.addEventListener('click', deleteBook);
-    deleteButton.setAttribute('type', 'button');
-    deleteButton.classList = 'del-button';
-
-    bookTitle.appendChild(h2TitleText);
-    bookTitle.appendChild(h2BookName);
-
-    bookAuthor.appendChild(h4AuthorText);
-    bookAuthor.appendChild(h4AuthorName);
-
-    bookRead.appendChild(h4Read);
-    bookRead.appendChild(checkbox);
-
-    book.appendChild(bookTitle);
-    book.appendChild(bookAuthor);
-    book.appendChild(bookRead);
-    book.appendChild(deleteButton);
-
-    contentContainer.appendChild(book);
-
-    h2TitleText.textContent = 'Title: ';
-    h4AuthorText.textContent = 'Author: ';
-    h4Read.textContent = 'Read: ';
-    deleteButton.textContent = 'Delete';
-
-    h2BookName.textContent = bookObj.title;
-    h4AuthorName.textContent = bookObj.author;
-    checkbox.checked = bookObj.readStatus;
-}
-
-
-function Book(title, author, readStatus) {
-    this.title = title;
-    this.author = author;
-    this.readStatus = readStatus;
+function Book (title, author, readStatus) {
+  this.title = title
+  this.author = author
+  this.readStatus = readStatus
 }
 
 Book.prototype.removeBook = function () {
-    //remove book from booksInLibrary Array
-    var index = booksinLibrary.indexOf(this);
-    booksinLibrary.splice(index, 1);
+  // remove book from booksInLibrary Array
+  const index = booksinLibrary.indexOf(this)
+  booksinLibrary.splice(index, 1)
 }
 
 Book.prototype.addBook = function () {
-    booksinLibrary.push(this);
-    displayBookCard(this);
+  booksinLibrary.push(this)
+  displayBookCard(this)
 }
 
-//instances of books
-book1 = new Book("Everything is F*cked", "Mark Manson", false);
-book2 = new Book("Art of War", "Sun Tzu", true);
+// instances of books
+const book1 = new Book('Everything is F*cked', 'Mark Manson', false)
+const book2 = new Book('Art of War', 'Sun Tzu', true)
 
-book1.addBook();
-book2.addBook();
+book1.addBook()
+book2.addBook()
 
-book3 = new Book("Art of BBB", "Mzi Oshi", true);
-book4 = new Book("BBCNA", "Mark Twain", false);
+const book3 = new Book('Art of BBB', 'Mzi Oshi', true)
+const book4 = new Book('BBCNA', 'Mark Twain', false)
 
-book3.addBook();
-book4.addBook();
+book3.addBook()
+book4.addBook()
